@@ -1,24 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
-import os
 import re
-import string
 import subprocess
 import sys
 import xml.dom.minidom
 import shlex
 
-try:
-	from multiprocessing import Process
-except ImportError:
-	# For pre 2.6 releases
-	from threading import Thread as Process
 
-############################################################################
-
-
-class PortScanner(object):
+class PortScanner:
 	"""
 	PortScanner allows to use nmap from python
 	"""

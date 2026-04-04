@@ -19,7 +19,7 @@ from os import path as os_path, fsync
 
 from .MountView import AutoMountView
 from .MountEdit import AutoMountEdit
-from .AutoMount import iAutoMount, AutoMount
+from .AutoMount import iAutoMount
 from .UserManager import UserManager
 
 try:

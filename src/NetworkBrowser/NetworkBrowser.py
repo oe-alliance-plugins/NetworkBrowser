@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # for localized messages
-from __future__ import print_function
 from __future__ import absolute_import
 from .__init__ import _
 from enigma import eTimer, eConsoleAppContainer
@@ -22,7 +21,6 @@ from stat import ST_MTIME
 from pickle import dump, load
 import subprocess
 
-from . import ipscan
 from . import netscan
 from .MountManager import AutoMountManager
 from .AutoMount import iAutoMount

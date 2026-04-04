@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 # for localized messages
-from __future__ import print_function
 from __future__ import absolute_import
-from .__init__ import _
 import os
 
 from enigma import eTimer
@@ -26,7 +24,7 @@ def rm_rf(d):  # only for removing the ipkg stuff from /media/hdd subdirs
 		print("AutoMount failed to remove", d, "Error:", ex)
 
 
-class AutoMount():
+class AutoMount:
 	"""Manages Mounts declared in a XML-Document."""
 
 	def __init__(self):

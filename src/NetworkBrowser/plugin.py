@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # for localized messages
-from __future__ import print_function
 from __future__ import absolute_import
 from .__init__ import _
 
@@ -9,7 +8,6 @@ from enigma import eTimer
 from Components.config import config
 from Plugins.Plugin import PluginDescriptor
 from .NetworkBrowser import NetworkBrowser
-from Components.Network import iNetwork
 from .MountManager import AutoMountManager
 from .AutoMount import iAutoMount
 
@@ -99,7 +97,6 @@ def MountManagerCallFunction(iface):
 
 
 def RemountMain(session, iface=None, **kwargs):
-	from .AutoMount import iAutoMount
 	iAutoMount.getAutoMountPoints()
 
 
