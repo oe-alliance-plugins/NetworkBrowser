@@ -18,7 +18,7 @@ from os import path as os_path, unlink, stat, mkdir
 from time import time
 from stat import ST_MTIME
 
-from six.moves.cPickle import dump, load
+from pickle import dump, load
 
 
 def write_cache(cache_file, cache_data):

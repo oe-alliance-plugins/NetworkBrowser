@@ -1,1 +1,3 @@
-SUBDIRS = src meta po
+installdir = $(libdir)/enigma2/python/Plugins/SystemPlugins/NetworkBrowser
+
+SUBDIRS = lib

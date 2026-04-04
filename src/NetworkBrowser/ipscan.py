@@ -6,10 +6,8 @@ import re
 import string
 import subprocess
 import sys
-import types
 import xml.dom.minidom
 import shlex
-import six
 
 try:
 	from multiprocessing import Process
@@ -34,14 +32,14 @@ class PortScanner(object):
 		self.__process = None
 
 	def ipscan(self, hosts='127.0.0.1'):
-		assert type(hosts) in types.StringTypes, 'Wrong type for [hosts], should be a string [was {0}]'.format(type(hosts))
+		assert isinstance(hosts, str), 'Wrong type for [hosts], should be a string [was {0}]'.format(type(hosts))
 		self.scan(hosts, arguments='-sP')
 		return self.all_hosts()
 
 	def scan(self, hosts='127.0.0.1', ports=None, arguments='-sV'):
-		assert type(hosts) in types.StringTypes, 'Wrong type for [hosts], should be a string [was {0}]'.format(type(hosts))
-		assert type(ports) in types.StringTypes + (types.NoneType,), 'Wrong type for [ports], should be a string [was {0}]'.format(type(ports))
-		assert type(arguments) in types.StringTypes, 'Wrong type for [arguments], should be a string [was {0}]'.format(type(arguments))
+		assert isinstance(hosts, str), 'Wrong type for [hosts], should be a string [was {0}]'.format(type(hosts))
+		assert ports is None or isinstance(ports, str), 'Wrong type for [ports], should be a string [was {0}]'.format(type(ports))
+		assert isinstance(arguments, str), 'Wrong type for [arguments], should be a string [was {0}]'.format(type(arguments))
 
 		f_args = shlex.split(arguments)
 
@@ -53,8 +51,8 @@ class PortScanner(object):
 		# wait until finished
 		# get output
 		(self._nmap_last_output, nmap_err) = p.communicate()
-		nmap_err = six.ensure_str(nmap_err)
-		self._nmap_last_output = six.ensure_str(self._nmap_last_output)
+		nmap_err = nmap_err.decode("UTF-8", "ignore") if isinstance(nmap_err, bytes) else str(nmap_err)
+		self._nmap_last_output = self._nmap_last_output.decode("UTF-8", "ignore") if isinstance(self._nmap_last_output, bytes) else str(self._nmap_last_output)
 
 		# If there was something on stderr, there was a problem so abort...
 		if len(nmap_err) > 0:
@@ -103,7 +101,7 @@ class PortScanner(object):
 		return scan_result
 
 	def __getitem__(self, host):
-		assert type(host) in types.StringTypes, 'Wrong type for [host], should be a string [was {0}]'.format(type(host))
+		assert isinstance(host, str), 'Wrong type for [host], should be a string [was {0}]'.format(type(host))
 		return self._scan_result['scan'][host]
 
 	def all_hosts(self):

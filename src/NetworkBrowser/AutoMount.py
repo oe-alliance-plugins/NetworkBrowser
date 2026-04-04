@@ -10,7 +10,6 @@ from Components.Console import Console
 from Components.Harddisk import harddiskmanager  # global harddiskmanager
 from xml.etree.cElementTree import parse as cet_parse
 from shutil import rmtree
-import six
 
 XML_FSTAB = "/etc/enigma2/automounts.xml"
 
@@ -55,8 +54,6 @@ class AutoMount():
 		file.close()
 
 		def enc(val):
-			if six.PY2:
-				return val.encode("UTF-8")
 			return val
 
 		def getValue(definitions, default):
@@ -64,10 +61,7 @@ class AutoMount():
 			ret = ""
 			# How many definitions are present
 			Len = len(definitions)
-			if six.PY2:
-				return Len > 0 and definitions[Len - 1].text.encode("UTF-8") or default.encode("UTF-8")
-			else:
-				return Len > 0 and definitions[Len - 1].text or default
+			return Len > 0 and definitions[Len - 1].text or default
 
 		mountusing = 0  # 0=old_enigma2, 1 =fstab, 2=enigma2
 		# Config is stored in "mountmanager" element
@@ -290,8 +284,6 @@ class AutoMount():
 			self.MountConsole = Console()
 
 		def enc(val):
-			if six.PY2:
-				return val.encode("UTF-8")
 			return val
 
 		command = []

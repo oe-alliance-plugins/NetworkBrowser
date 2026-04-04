@@ -3,27 +3,27 @@
 from __future__ import print_function
 from __future__ import absolute_import
 from .__init__ import _
-from enigma import eTimer
+from enigma import eTimer, eConsoleAppContainer
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
+from Screens.ChoiceBox import ChoiceBox
+from Screens.Processing import Processing
 from Components.ActionMap import ActionMap
 from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
 from Components.Network import iNetwork
 from Components.config import getConfigListEntry, ConfigIP
 from Components.ConfigList import ConfigListScreen
-from Components.Console import Console
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_ACTIVE_SKIN, fileExists
 from Tools.LoadPixmap import LoadPixmap
 from os import path as os_path, stat, mkdir, remove
 from time import time
 from stat import ST_MTIME
-import six
-from six.moves.cPickle import dump, load
+from pickle import dump, load
 import subprocess
 
-from . import netscan
 from . import ipscan
+from . import netscan
 from .MountManager import AutoMountManager
 from .AutoMount import iAutoMount
 from .MountEdit import AutoMountEdit
@@ -122,7 +122,18 @@ class NetworkBrowser(Screen):
 		self.expanded = []
 		self.cache_ttl = 604800  # Seconds cache is considered valid, 7 Days should be ok
 		self.cache_file = '/etc/enigma2/networkbrowser.cache'  # Path to cache directory
-		self.Console = Console()
+		self.nmapConsole = eConsoleAppContainer()
+		self.nmapConsole.dataAvail.append(self.nmapDataAvail)
+		self.nmapConsole.appClosed.append(self.nmapAppClosed)
+		self.nmapMessageBox = None
+		self.nmapCommand = "/usr/bin/nmap"
+		self.nmapScanCount = 3
+		self.nmapSingleScanCount = 1
+		self.forceNfsHosts = set()
+		self.nmapScanIndex = 0
+		self.nmapScanResults = []
+		self.nmapBuffer = ""
+		self.nmapTarget = None
 
 		self["key_red"] = StaticText(_("Close"))
 		self["key_green"] = StaticText(_("Mount manager"))
@@ -130,7 +141,7 @@ class NetworkBrowser(Screen):
 		self["key_blue"] = StaticText(_("Expert"))
 		self["infotext"] = StaticText(_("Press OK to mount!"))
 
-		self["shortcuts"] = ActionMap(["ShortcutActions", "WizardActions"],
+		self["shortcuts"] = ActionMap(["ShortcutActions", "WizardActions", "MenuActions"],
 		{
 			"ok": self.go,
 			"back": self.close,
@@ -138,6 +149,7 @@ class NetworkBrowser(Screen):
 			"green": self.keyGreen,
 			"yellow": self.keyYellow,
 			"blue": self.keyBlue,
+			"menu": self.keyMenu,
 		})
 
 		self.list = []
@@ -167,6 +179,19 @@ class NetworkBrowser(Screen):
 		return None
 
 	def cleanup(self):
+		try:
+			self.nmapConsole.dataAvail.remove(self.nmapDataAvail)
+		except Exception:
+			pass
+		try:
+			self.nmapConsole.appClosed.remove(self.nmapAppClosed)
+		except Exception:
+			pass
+		try:
+			self.nmapConsole.kill()
+		except Exception:
+			pass
+		self.closeNmapMessageBox()
 		del self.Timer
 		iAutoMount.stopMountConsole()
 		iNetwork.stopRestartConsole()
@@ -175,6 +200,7 @@ class NetworkBrowser(Screen):
 	def startRun(self):
 		self["shortcuts"].setEnabled(False)
 		self.expanded = []
+		self.forceNfsHosts = set()
 		self.setStatus('update')
 		self.mounts = iAutoMount.getMountsList()
 		self["infotext"].setText("")
@@ -203,14 +229,26 @@ class NetworkBrowser(Screen):
 		self.session.openWithCallback(self.scanIPclosed, ScanIP)
 
 	def scanIPclosed(self, result):
-		if result[0]:
-			if result[1] == "address":
-				print("[Networkbrowser] got IP:", result[1])
-				nwlist = []
-				nwlist.append(netscan.netzInfo(result[0] + "/24"))
-				self.networklist += nwlist[0]
-			elif result[1] == "nfs":
-				self.networklist.append(['host', result[0], result[0], '00:00:00:00:00:00', result[0], 'Master Browser'])
+		if not result[0]:
+			return
+		if result[1] == "address":
+			print("[Networkbrowser] got IP:", result[0])
+			target = result[0].strip()
+			if '/' in target:
+				scanCount = self.nmapSingleScanCount if target.count('.') == 3 and target.split('/')[-1] == '32' else self.nmapScanCount
+			else:
+				scanCount = self.nmapSingleScanCount
+			self.startNmapScan(target, scanCount)
+			return
+		elif result[1] == "nfs":
+			hostip = result[0]
+			self.forceNfsHosts.add(hostip)
+			self.mergeNetworkEntries([['host', hostip, hostip, '00:00:00:00:00:00', hostip, 'Master Browser']])
+			if hostip not in self.expanded:
+				self.expanded.append(hostip)
+			write_cache(self.cache_file, self.networklist)
+			self.updateNetworkList()
+			return
 
 		if len(self.networklist) > 0:
 			write_cache(self.cache_file, self.networklist)
@@ -269,19 +307,18 @@ class NetworkBrowser(Screen):
 				self.inv_cache = 1
 		if self.cache_ttl == 0 or self.inv_cache == 1 or self.vc == 0:
 			print('[Networkbrowser] Getting fresh network list')
-			self.networklist = self.getNetworkIPs()
-			if fileExists("/usr/bin/nmap"):
+			self.networklist = []
+			if fileExists(self.nmapCommand):
 				strGateway, strIP = self.makeStrIP()
-				if strGateway and strIP:
-					self.Console.ePopen("nmap --dns-servers " + strGateway + " -oX - " + strIP + ' -sP 2>/dev/null', self.Stage1SettingsComplete)
+				if strIP:
+					self.startNmapScan(strIP, self.nmapScanCount)
 				else:
 					self.session.open(MessageBox, _("Your network interface %s is not properly configured, so a network scan cannot be done.\nPlease configure the interface and try again.") % self.iface, type=MessageBox.TYPE_ERROR)
 					self.setStatus('error')
 					self["shortcuts"].setEnabled(True)
 			else:
-				write_cache(self.cache_file, self.networklist)
-				if len(self.networklist) > 0:
-					self.updateHostsList()
+				self.session.open(MessageBox, _("Nmap is required for network scanning but was not found on this system."), type=MessageBox.TYPE_ERROR)
+				self.setStatus('error')
 				self["shortcuts"].setEnabled(True)
 		else:
 			if len(self.networklist) > 0:
@@ -290,35 +327,122 @@ class NetworkBrowser(Screen):
 				self.setStatus('error')
 			self["shortcuts"].setEnabled(True)
 
-	def getNetworkIPs(self):
-		nwlist = []
-		strGateway, strIP = self.makeStrIP()
-		if strGateway and strIP:
-			try:
-				nwlist = netscan.netzInfo(strIP)
-			except Exception:
-				pass
-		return nwlist
+	def startNmapScan(self, target, scanCount=None):
+		self.nmapTarget = target
+		self.nmapCurrentScanCount = scanCount if scanCount is not None else self.nmapScanCount
+		self.nmapScanIndex = 0
+		self.nmapScanResults = []
+		self.nmapBuffer = ""
+		self.showNmapMessageBox()
+		self.runNextNmapScan()
 
-	def Stage1SettingsComplete(self, result, retval, extra_args):
+	def runNextNmapScan(self):
+		if self.nmapScanIndex >= self.nmapCurrentScanCount:
+			self.finishNmapScan()
+			return
+		self.nmapBuffer = ""
+		scanNumber = self.nmapScanIndex + 1
+		argv = [self.nmapCommand, "-n", "-sn", "-oX", "-", self.nmapTarget]
+		print("[Networkbrowser] Executing nmap scan %d/%d: '%s'." % (scanNumber, self.nmapCurrentScanCount, " ".join(argv)))
+		self.nmapScanIndex = scanNumber
+		self.updateNmapMessageBox()
+		if self.nmapConsole.execute(*argv):
+			print('[Networkbrowser] Failed to start nmap scan task.')
+			self.finishNmapScan()
+
+	def nmapDataAvail(self, data):
+		data = data.decode("UTF-8", "ignore") if isinstance(data, bytes) else str(data)
+		self.nmapBuffer += data
+
+	def nmapAppClosed(self, retval):
+		if retval not in (0, None):
+			print('[Networkbrowser] Nmap scan exited with status %s.' % retval)
+		self.nmapScanResults.extend(self.parseNmapResult(self.nmapBuffer))
+		self.runNextNmapScan()
+
+	def showNmapMessageBox(self):
+		message = _("Please wait while the network scan is running...")
+		if self.nmapCurrentScanCount > 1:
+			message = _("Please wait while the network scan is running...\nMultiple scan passes are used to improve detection.")
+		Processing.instance.setDescription(message)
+		Processing.instance.showProgress(endless=True)
+
+	def updateNmapMessageBox(self):
+		message = _("Please wait while the network scan is running...")
+		if self.nmapCurrentScanCount > 1:
+			message = _("Please wait while the network scan is running...\nScan pass %d/%d") % (self.nmapScanIndex, self.nmapCurrentScanCount)
+		Processing.instance.setDescription(message)
+
+	def closeNmapMessageBox(self):
+		Processing.instance.hideProgress()
+
+	def extractNmapXml(self, result):
+		result = result.decode("UTF-8", "ignore") if isinstance(result, bytes) else str(result)
+		start = result.find('<?xml')
+		end = result.rfind('</nmaprun>')
+		if start == -1 or end == -1:
+			return None
+		end += len('</nmaprun>')
+		return result[start:end]
+
+	def parseNmapResult(self, result):
 		import xml.dom.minidom
 
-		result = six.ensure_str(result)
-		dom = xml.dom.minidom.parseString(result)
+		xml_data = self.extractNmapXml(result)
+		if not xml_data:
+			print('[Networkbrowser] Failed to extract nmap XML output.')
+			return []
+		try:
+			dom = xml.dom.minidom.parseString(xml_data)
+		except Exception as err:
+			print('[Networkbrowser] Failed to parse nmap scan result: %s' % err)
+			return []
 		scan_result = []
 		for dhost in dom.getElementsByTagName('host'):
-			# host ip
+			status_nodes = dhost.getElementsByTagName('status')
+			if status_nodes and status_nodes[0].getAttribute('state') != 'up':
+				continue
+			address_nodes = dhost.getElementsByTagName('address')
+			if not address_nodes:
+				continue
 			host = ''
-			hostname = ''
-			host = dhost.getElementsByTagName('address')[0].getAttributeNode('addr').value
-			for dhostname in dhost.getElementsByTagName('hostname'):
-				hostname = dhostname.getAttributeNode('name').value
-				hostname = hostname.split('.')
-				hostname = hostname[0]
-				host = dhost.getElementsByTagName('address')[0].getAttributeNode('addr').value
-				scan_result.append(['host', str(hostname).upper(), str(host), '00:00:00:00:00:00'])
+			mac = '00:00:00:00:00:00'
+			for address_node in address_nodes:
+				addrtype = address_node.getAttribute('addrtype')
+				if addrtype in ('ipv4', '') and not host:
+					host = address_node.getAttribute('addr')
+				elif addrtype == 'mac':
+					mac = address_node.getAttribute('addr') or mac
+			if not host:
+				continue
+			hostname = host
+			hostnames = dhost.getElementsByTagName('hostname')
+			if hostnames:
+				name = hostnames[0].getAttribute('name')
+				if name:
+					hostname = name.split('.')[0]
+			scan_result.append(['host', str(hostname).upper(), str(host), str(mac)])
+		return scan_result
 
-		self.networklist += scan_result
+	def mergeNetworkEntries(self, entries):
+		merged = {}
+		for entry in self.networklist + entries:
+			if len(entry) < 4:
+				continue
+			key = entry[2]
+			if key not in merged:
+				merged[key] = list(entry)
+				continue
+			current = merged[key]
+			if current[1] == current[2] and entry[1] != entry[2]:
+				current[1] = entry[1]
+			if (current[3] == '00:00:00:00:00:00' or not current[3]) and entry[3]:
+				current[3] = entry[3]
+		self.networklist = list(merged.values())
+
+	def finishNmapScan(self):
+		self.closeNmapMessageBox()
+		self.mergeNetworkEntries(self.nmapScanResults)
 		write_cache(self.cache_file, self.networklist)
 		if len(self.networklist) > 0:
 			self.updateHostsList()
@@ -350,10 +474,7 @@ class NetworkBrowser(Screen):
 		if username and password:
 			cmd = ["/usr/bin/smbclient", "-m SMB3", "-g", "-U", username, "-L", hostip, "\\\\IPC\\"]
 		try:
-			if six.PY3:
-				p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, stdin=subprocess.PIPE, text=True)
-			else:
-				p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+			p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, stdin=subprocess.PIPE, text=True)
 			if username and password:
 				p.stdin.write(password + '\n')
 				p.stdin.flush()
@@ -403,7 +524,7 @@ class NetworkBrowser(Screen):
 			self.network[x[2]].append((NetworkDescriptor(name=x[1], description=x[2]), x))
 		list(self.network.keys()).sort()
 		for x in list(self.network.keys()):
-			if self.network[x][0][1][3] == '00:00:00:00:00:00':
+			if x in self.forceNfsHosts or self.network[x][0][1][3] == '00:00:00:00:00:00':
 				self.device = 'unix'
 			else:
 				self.device = 'windows'
@@ -521,6 +642,40 @@ class NetworkBrowser(Screen):
 			desc = ""
 		for cb in self.onChangedEntry:
 			cb(name, desc)
+
+	def keyMenu(self):
+		sel = self["list"].getCurrent()
+		if sel is None or len(sel[0]) <= 1:
+			return
+		if sel[0][0] != 'host':
+			return
+		selectedhostname = sel[0][1].strip()
+		self.session.openWithCallback(self.MenuChoiceClosed, ChoiceBox, title=_("Host actions"), list=[
+			((_("Edit username and password")), "edit_credentials"),
+			((_("Delete stored username and password")), "delete_credentials"),
+		])
+
+	def MenuChoiceClosed(self, choice=None):
+		if not choice or len(choice) < 2:
+			return
+		sel = self["list"].getCurrent()
+		if sel is None or len(sel[0]) <= 1 or sel[0][0] != 'host':
+			return
+		selectedhostname = sel[0][1].strip()
+		hostcache_file = '/etc/enigma2/' + selectedhostname + '.cache'
+		if choice[1] == 'edit_credentials':
+			self.session.openWithCallback(self.CredentialsDialogClosed, UserDialog, self.skin_path, selectedhostname)
+		elif choice[1] == 'delete_credentials':
+			if os_path.exists(hostcache_file):
+				try:
+					remove(hostcache_file)
+				except Exception:
+					pass
+			self.session.open(MessageBox, _("Stored username and password deleted for this host."), type=MessageBox.TYPE_INFO, timeout=3)
+
+	def CredentialsDialogClosed(self, *ret):
+		if ret is not None and len(ret):
+			self.updateNetworkList()
 
 	def go(self):
 		sel = self["list"].getCurrent()

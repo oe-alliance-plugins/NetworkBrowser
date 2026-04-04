@@ -1,0 +1,19 @@
+{
+  "branch": "main",
+  "depends_recipe": "",
+  "description_control": "Networkbrowser and Network-Mountmanager",
+  "description_recipe": "Networkbrowser and Network-Mountmanager",
+  "history_source_dir": "networkbrowser",
+  "internal_package_name": "enigma2-plugin-systemplugins-networkbrowser",
+  "module_dir_name": "NetworkBrowser",
+  "output_subdir": "networkbrowser",
+  "package_name": "enigma2-plugin-systemplugins-networkbrowser",
+  "plugin_src_rel": "networkbrowser",
+  "python_package": "NetworkBrowser",
+  "rdepends_recipe": "",
+  "replaces": "",
+  "repo_name": "NetworkBrowser",
+  "rrecommends": "",
+  "rreplaces": "",
+  "selected_from_plugin_list": true
+}

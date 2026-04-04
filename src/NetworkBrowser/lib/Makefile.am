@@ -1,4 +1,10 @@
-include $(top_srcdir)/Rules-cpp.mak
+AM_CFLAGS = \
+	-Wall
+
+PLUGIN_LIBTOOL_FLAGS = \
+	-avoid-version \
+	-module \
+	-shared
 
 plugindir = $(libdir)/enigma2/python/Plugins/SystemPlugins/NetworkBrowser
 
