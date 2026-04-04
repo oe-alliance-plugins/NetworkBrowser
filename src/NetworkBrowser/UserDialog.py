@@ -176,7 +176,7 @@ class UserDialog(ConfigListScreen, Screen):
 #			self["config"].getCurrent()[1].help_window.instance.move(ePoint(helpwindowpos[0], helpwindowpos[1]))
 
 	def ok(self):
-		current = self["config"].getCurrent()
+		# current = self["config"].getCurrent()
 		self.hostdata = {'username': self.username.value, 'password': self.password.value}
 		write_cache(self.cache_file, self.hostdata)
 		self.close(True)

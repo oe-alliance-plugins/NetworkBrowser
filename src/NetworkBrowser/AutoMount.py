@@ -44,7 +44,7 @@ class AutoMount():
 
 	def getAutoMountPoints(self, callback=None, restart=False):
 		# Initialize mounts to empty list
-		automounts = []
+		# automounts = []
 		self.automounts = {}
 		self.activeMountsCounter = 0
 		if not os.path.exists(XML_FSTAB):
@@ -58,7 +58,7 @@ class AutoMount():
 
 		def getValue(definitions, default):
 			# Initialize Output
-			ret = ""
+			# ret = ""
 			# How many definitions are present
 			Len = len(definitions)
 			return Len > 0 and definitions[Len - 1].text or default
@@ -452,16 +452,16 @@ class AutoMount():
 	def writeMountsConfig(self):
 		# Generate List in RAM
 		_list = ['<?xml version="1.0" ?>\n<mountmanager>\n']
-		for sharename, sharedata in list(self.automounts.items()):
+		for sharename, sharedata in self.automounts.items():
 			mounttype = sharedata['mounttype']
 			mountusing = sharedata['mountusing']
 
 			if sharedata['hdd_replacement'] == 'True' or sharedata['hdd_replacement'] is True:  # hdd replacement hack
 				path = os.path.join('/media/hdd')
-				sharepath = os.path.join('/media/net', sharedata['sharename'])
+				# sharepath = os.path.join('/media/net', sharedata['sharename'])
 			else:
 				path = os.path.join('/media/net', sharedata['sharename'])
-				sharepath = ""
+				# sharepath = ""
 
 			sharetemp = None
 			if mounttype == 'nfs':
@@ -516,9 +516,9 @@ class AutoMount():
 # 		print "[NetworkBrowser] removing mount: ",mountpoint
 		self.newautomounts = {}
 		for sharename, sharedata in list(self.automounts.items()):
-			sharepath = os.path.join('/media/net', sharedata['sharename'])
+			sharepath = os.path.join('/media/net', sharedata['sharename'])  # noqa: F841
 			if sharedata['mountusing'] == 'autofs':
-				sharepath = os.path.join('/media/autofs', sharedata['sharename'])
+				sharepath = os.path.join('/media/autofs', sharedata['sharename'])  # noqa: F841
 				path = os.path.join('/media/autofs', sharedata['sharename'])
 				if sharedata['hdd_replacement'] == 'True' or sharedata['hdd_replacement'] is True:
 					if os.path.islink('/media/hdd'):
@@ -542,7 +542,7 @@ class AutoMount():
 		if not self.removeConsole:
 			self.removeConsole = Console()
 		command = []
-		autofsstop = None
+		# autofsstop = None
 		if sharedata['mountusing'] == 'autofs':
 			command.append("/etc/init.d/autofs stop")
 			command.append("sleep 2")

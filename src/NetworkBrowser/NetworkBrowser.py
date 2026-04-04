@@ -562,7 +562,7 @@ class NetworkBrowser(Screen):
 		else:
 			verticallineIcon = LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, "SystemPlugins/NetworkBrowser/icons/verticalLine.png"))
 		sharetype = share[0]
-		localsharename = share[1]
+		# localsharename = share[1]
 		sharehost = share[2]
 
 		if sharetype == 'smbShare':
@@ -584,7 +584,7 @@ class NetworkBrowser(Screen):
 				newpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, "SystemPlugins/NetworkBrowser/icons/i-smb.png"))
 
 		self.isMounted = False
-		for sharename, sharedata in list(self.mounts.items()):
+		for sharename, sharedata in self.mounts.items():
 			if sharedata['ip'] == sharehost:
 				if sharetype == 'nfsShare' and sharedata['mounttype'] == 'nfs':
 					sharedir = sharedir.replace('/', '')
@@ -649,7 +649,7 @@ class NetworkBrowser(Screen):
 			return
 		if sel[0][0] != 'host':
 			return
-		selectedhostname = sel[0][1].strip()
+		# selectedhostname = sel[0][1].strip()
 		self.session.openWithCallback(self.MenuChoiceClosed, ChoiceBox, title=_("Host actions"), list=[
 			((_("Edit username and password")), "edit_credentials"),
 			((_("Delete stored username and password")), "delete_credentials"),
@@ -684,7 +684,7 @@ class NetworkBrowser(Screen):
 		if len(sel[0]) <= 1:
 			return
 
-		selectedhost = sel[0][2]
+		# selectedhost = sel[0][2]
 		selectedhostname = sel[0][1]
 
 		self.hostcache_file = '/etc/enigma2/' + selectedhostname.strip() + '.cache'  # Path to cache directory

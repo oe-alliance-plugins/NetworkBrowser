@@ -28,8 +28,8 @@ class PortScanner(object):
 		self._nmap_version_number = 0       # nmap version number
 		self._nmap_subversion_number = 0    # nmap subversion number
 		self._nmap_last_output = ''  # last full ascii nmap output
-		is_nmap_found = False       # true if we have found nmap
-		self.__process = None
+		# is_nmap_found = False       # true if we have found nmap
+		# self.__process = None
 
 	def ipscan(self, hosts='127.0.0.1'):
 		assert isinstance(hosts, str), 'Wrong type for [hosts], should be a string [was {0}]'.format(type(hosts))

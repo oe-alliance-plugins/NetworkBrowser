@@ -329,11 +329,11 @@ class AutoMountEdit(ConfigListScreen, Screen):
 			if current[1].help_window.instance is not None:
 				current[1].help_window.instance.hide()
 
-		sharename = re_sub(r"\W", "", self.sharenameConfigEntry.value)
+		sharename = re_sub(r"\W", "", self.sharenameConfigEntry.value)  # noqa: F841
 		if self.sharedirConfigEntry.value.startswith("/"):
-			sharedir = self.sharedirConfigEntry.value[1:]
+			sharedir = self.sharedirConfigEntry.value[1:]  # noqa: F841
 		else:
-			sharedir = self.sharedirConfigEntry.value
+			sharedir = self.sharedirConfigEntry.value  # noqa: F841
 
 		sharexists = False
 		for data in self.mounts:
