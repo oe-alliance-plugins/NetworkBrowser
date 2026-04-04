@@ -108,7 +108,7 @@ def RemountCallFunction(iface):
 
 
 def SchedMount(session, **kwargs):
-	session.open(MountAgainCheck)
+	session.open(MountAgainCheck)  # noqa: F821
 
 
 def menuBrowser(menuid, **kwargs):

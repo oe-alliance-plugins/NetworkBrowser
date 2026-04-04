@@ -62,9 +62,8 @@ class PortScanner(object):
 					rgw = regex_warning.search(line)
 					if rgw is not None:
 						sys.stderr.write(line + '\n')
-						pass
 					else:
-						raise PortScannerError(nmap_err)
+						raise Exception(nmap_err)
 
 		# nmap xml output looks like :
 		#  <host starttime="1267974521" endtime="1267974522">
