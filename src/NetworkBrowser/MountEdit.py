@@ -5,13 +5,12 @@ from .__init__ import _
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
-from Components.ActionMap import ActionMap
+from Components.ActionMap import ActionMap, NumberActionMap
 from Components.Sources.Boolean import Boolean
 from Components.Sources.StaticText import StaticText
 from Components.config import ConfigIP, NoSave, ConfigText, ConfigEnableDisable, ConfigPassword, ConfigSelection, getConfigListEntry, ConfigYesNo
 from Components.ConfigList import ConfigListScreen
 from Components.Pixmap import Pixmap
-from Components.ActionMap import ActionMap, NumberActionMap
 from enigma import ePoint
 from .AutoMount import iAutoMount
 from re import sub as re_sub

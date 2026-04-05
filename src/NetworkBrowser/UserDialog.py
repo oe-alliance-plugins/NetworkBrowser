@@ -4,13 +4,12 @@ from __future__ import absolute_import
 from .__init__ import _
 from Screens.Screen import Screen
 from Screens.VirtualKeyBoard import VirtualKeyBoard
-from Components.ActionMap import ActionMap
+from Components.ActionMap import ActionMap, NumberActionMap
 from Components.config import ConfigText, ConfigPassword, NoSave, getConfigListEntry
 from Components.ConfigList import ConfigListScreen
 from Components.Sources.Boolean import Boolean
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
-from Components.ActionMap import ActionMap, NumberActionMap
 from os import path as os_path, stat, mkdir
 from time import time
 from stat import ST_MTIME
