@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: tuxbox-enigma 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-16 19:06+0430\n"
-"PO-Revision-Date: 2025-05-23 11:18+0100\n"
+"PO-Revision-Date: 2026-04-08 08:44+0100\n"
 "Last-Translator: Mariusz1970 <Mariusz1970@onet.eu>\n"
 "Language-Team: none <Mariusz1970@onet.eu>\n"
 "Language: pl\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 msgid ""
@@ -66,7 +66,7 @@ msgid "CIFS share"
 msgstr "Podział CIFS"
 
 msgid "Cancel"
-msgstr "Kasować"
+msgstr "Anuluj"
 
 msgid "Change hostname"
 msgstr "Zmień nazwę hosta"
@@ -121,6 +121,9 @@ msgstr "Wpisz nazwę użytkownika:"
 
 msgid "Expert"
 msgstr "Ekspert"
+
+msgid "Host actions"
+msgstr "Akcje hosta"
 
 msgid "FSTAB (mount at boot)"
 msgstr "FSTAB (montowanie przy bootowaniu)"
@@ -210,6 +213,13 @@ msgstr "Poczekaj podczas aktualizacji montowania sieciowego..."
 msgid "Please wait while your network is restarting..."
 msgstr "Poczekaj sieć jest ponowne uruchamiana ..."
 
+msgid ""
+"Please wait while the network scan is running...\n"
+"Scan pass %d/%d"
+msgstr ""
+"Proszę czekać, skanowanie sieci jest w toku...\n"
+"Skanowanie przebiegło pomyślnie %d/%d"
+
 msgid "Press OK to activate the settings."
 msgstr "Wciśnij OK, aby aktywować ustawienia."
 
@@ -279,6 +289,9 @@ msgstr "Udział serwera"
 msgid "Setup Mount Again"
 msgstr "Ustawienie ponownego montowania"
 
+msgid "Stored username and password deleted for this host."
+msgstr "Zapisane nazwy użytkowników i hasła zostały usunięte dla tego hosta."
+
 msgid "Use as HDD replacement"
 msgstr "Użyj jako wymiany HDD"
 
@@ -290,6 +303,12 @@ msgstr "Menedżer użytkownika"
 
 msgid "Username"
 msgstr "Nazwa użytkownika"
+
+msgid "Edit username and password"
+msgstr "Edytuj nazwę użytkownika i hasło"
+
+msgid "Delete stored username and password"
+msgstr "Usuń zapisaną nazwę użytkownika i hasło"
 
 msgid "View, edit or delete mountpoints on your Receiver."
 msgstr "Pokaż, edytuj lub usuń punkty montowania Dreambox`a."
