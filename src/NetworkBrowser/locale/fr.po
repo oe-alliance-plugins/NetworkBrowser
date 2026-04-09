@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma 2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-16 19:06+0430\n"
+"POT-Creation-Date: 2026-04-10 01:01+0200\n"
 "PO-Revision-Date: 2008-05-16 17:15+0100\n"
 "Last-Translator: mimi74 <remi.jarrige0293@wanadoo.fr>\n"
 "Language-Team: french\n"
@@ -44,12 +44,6 @@ msgstr "Ajouter nouveau point de montage réseau"
 msgid "Adding schedule..."
 msgstr ""
 
-#, fuzzy
-msgid "Are you sure you want to remove your network mount ?"
-msgstr ""
-"Etes-vous sûr de vouloir sauver ce montage réseau?\n"
-"\n"
-
 msgid ""
 "Are you sure you want to save this network mount?\n"
 "\n"
@@ -84,16 +78,14 @@ msgstr "Fermer"
 msgid "Delete"
 msgstr "Effacer"
 
-#, fuzzy
-msgid "Delete mount"
-msgstr "Effacer montage sélectionné"
+msgid "Delete stored username and password"
+msgstr ""
 
 msgid "Dir:"
 msgstr "Répertoire:"
 
-#, fuzzy
-msgid "Do you want to enter a username and password for this host?"
-msgstr "Voulez-vous saisir un nom utilisateur et mot de passe pour cet hôte?\n"
+msgid "Edit username and password"
+msgstr ""
 
 msgid "Enigma2 (mount using enigma2)"
 msgstr ""
@@ -103,10 +95,6 @@ msgstr ""
 
 msgid "Enter IP to scan..."
 msgstr ""
-
-#, fuzzy
-msgid "Enter new hostname for your Receiver"
-msgstr "Saisir nouveau nom d'hôte pour votre Dreambox"
 
 msgid "Enter options:"
 msgstr "Entrer options:"
@@ -135,6 +123,9 @@ msgstr ""
 msgid "Finished restarting your network"
 msgstr "Terminer redémarrage de votre réseau"
 
+msgid "Host actions"
+msgstr ""
+
 msgid "IP Address"
 msgstr ""
 
@@ -150,15 +141,7 @@ msgstr "Gérer les partages réseau"
 msgid "Manage your network shares..."
 msgstr "Gestion partages de votre réseau..."
 
-#, fuzzy
-msgid "Mount Again"
-msgstr "Monter à nouveau"
-
 msgid "Mount Manager"
-msgstr "Gestion montage"
-
-#, fuzzy
-msgid "Mount Viewer"
 msgstr "Gestion montage"
 
 msgid "Mount again"
@@ -176,20 +159,12 @@ msgstr "Options montage"
 msgid "Mount type"
 msgstr "Type montage"
 
-#, fuzzy
-msgid "Mount using"
-msgstr "Monter à nouveau"
-
 msgid ""
 "Mounted/\n"
 "Unmounted"
 msgstr ""
 "Monté/\n"
 "Dé-monté"
-
-#, fuzzy
-msgid "Mounting network shares..."
-msgstr "Monter des partages réseau"
 
 msgid "Mountpoints management"
 msgstr "Gestionnaire points montage"
@@ -203,6 +178,9 @@ msgstr "Partage NFS"
 msgid "Network Browser"
 msgstr "Parcourir réseau"
 
+msgid "Nmap is required for network scanning but was not found on this system."
+msgstr ""
+
 msgid "No network devices found!"
 msgstr "Aucun périphériques réseau trouvé!"
 
@@ -215,6 +193,20 @@ msgstr "Veuillez attendre l'activation de votre montage réseau..."
 msgid "Please wait while removing your network mount..."
 msgstr "Veuiller attendre pendant le retrait du montage réseau..."
 
+msgid "Please wait while the network scan is running..."
+msgstr ""
+
+msgid ""
+"Please wait while the network scan is running...\n"
+"Multiple scan passes are used to improve detection."
+msgstr ""
+
+#, python-format
+msgid ""
+"Please wait while the network scan is running...\n"
+"Scan pass %d/%d"
+msgstr ""
+
 msgid "Please wait while updating your network mount..."
 msgstr "Veuillez attendre pendant la mise à jour montage réseau..."
 
@@ -224,10 +216,6 @@ msgstr "Veuillez attendre pendant le redémarrage du réseau..."
 msgid "Press OK to activate the settings."
 msgstr "Appuyez OK pour activer les paramètres."
 
-#, fuzzy
-msgid "Press OK to collapse this host"
-msgstr "Appuyez sur OK pour élargir cet hôte"
-
 msgid "Press OK to edit selected settings."
 msgstr "Appuyez OK pour éditer les paramètres choisis."
 
@@ -236,10 +224,6 @@ msgstr "Appuyez OK pour éditer les paramètres."
 
 msgid "Press OK to expand this host"
 msgstr "Appuyez sur OK pour élargir cet hôte"
-
-#, fuzzy
-msgid "Press OK to mount this share!"
-msgstr "Appuyez OK pour monter!."
 
 msgid "Press OK to mount!"
 msgstr "Appuyez OK pour monter!."
@@ -262,16 +246,8 @@ msgstr "Rescanner"
 msgid "Save"
 msgstr ""
 
-#, fuzzy
-msgid "Scan NFS share"
-msgstr "Partage NFS"
-
 msgid "Scan range"
 msgstr ""
-
-#, fuzzy
-msgid "Schedule MountAgain"
-msgstr "Paramètre remontage"
 
 msgid "Schedule a auto remount of your network shares."
 msgstr "Planifier un remontage automatique de vos partages réseau."
@@ -294,6 +270,9 @@ msgstr "Serveur partage"
 msgid "Setup Mount Again"
 msgstr "Paramètre remontage"
 
+msgid "Stored username and password deleted for this host."
+msgstr ""
+
 msgid "Use as HDD replacement"
 msgstr ""
 
@@ -311,14 +290,6 @@ msgstr "Voir, éditer ou effacer points montage de votre Récepteur."
 
 msgid "View, edit or delete usernames and passwords for your network."
 msgstr "Voir, éditer ou effacer noms utilisateurs et mots de passe de votre réseau."
-
-#, fuzzy
-msgid ""
-"You have changed the share name!\n"
-"Update existing entry and continue?\n"
-msgstr ""
-"Une entrée montage avec ce nom exist déjà!\n"
-"Mettre à jour et continuer avec ce nom?\n"
 
 #, python-format
 msgid ""

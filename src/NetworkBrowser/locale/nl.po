@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2 - networkbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-16 19:06+0430\n"
+"POT-Creation-Date: 2026-04-10 01:01+0200\n"
 "PO-Revision-Date: 2022-02-12 15:45+0100\n"
 "Last-Translator: Rob van der Does <RobvanderDoes@Gmail.com>\n"
 "Language-Team: AndyBlac/Rob van der Does\n"
@@ -87,11 +87,17 @@ msgstr "Verwijderen"
 msgid "Delete mount"
 msgstr "Verwijder mount"
 
+msgid "Delete stored username and password"
+msgstr ""
+
 msgid "Dir:"
 msgstr "Map:"
 
 msgid "Do you want to enter a username and password for this host?"
 msgstr "Wilt u een gebruikersnaam en wachtwoord opgeven voor deze host?"
+
+msgid "Edit username and password"
+msgstr ""
 
 msgid "Enigma2 (mount using enigma2)"
 msgstr "Enigma2 (mount gebruikt enigma2)"
@@ -131,6 +137,9 @@ msgstr "FSTAB (mount tijdens booten)"
 
 msgid "Finished restarting your network"
 msgstr "Herstarten van uw netwerk is voltooid"
+
+msgid "Host actions"
+msgstr ""
 
 msgid "IP Address"
 msgstr "IP Adres"
@@ -196,6 +205,9 @@ msgstr "NFS share"
 msgid "Network Browser"
 msgstr "Network Browser"
 
+msgid "Nmap is required for network scanning but was not found on this system."
+msgstr ""
+
 msgid "No network devices found!"
 msgstr "Geen netwerkapparaten gevonden!"
 
@@ -203,16 +215,27 @@ msgid "Password"
 msgstr "Wachtwoord"
 
 msgid "Please wait for activation of your network mount..."
-msgstr ""
-"Een ogenblikje geduld a.u.b. terwijl we uw netwerkverbinding activeren..."
+msgstr "Een ogenblikje geduld a.u.b. terwijl we uw netwerkverbinding activeren..."
 
 msgid "Please wait while removing your network mount..."
+msgstr "Een ogenblikje geduld a.u.b. terwijl we uw netwerkverbinding verwijderen..."
+
+msgid "Please wait while the network scan is running..."
 msgstr ""
-"Een ogenblikje geduld a.u.b. terwijl we uw netwerkverbinding verwijderen..."
+
+msgid ""
+"Please wait while the network scan is running...\n"
+"Multiple scan passes are used to improve detection."
+msgstr ""
+
+#, python-format
+msgid ""
+"Please wait while the network scan is running...\n"
+"Scan pass %d/%d"
+msgstr ""
 
 msgid "Please wait while updating your network mount..."
-msgstr ""
-"Een ogenblikje geduld a.u.b. terwijl we uw netwerkverbinding bijwerken..."
+msgstr "Een ogenblikje geduld a.u.b. terwijl we uw netwerkverbinding bijwerken..."
 
 msgid "Please wait while your network is restarting..."
 msgstr "Een ogenblikje geduld a.u.b. terwijl we uw netwerk herstarten..."
@@ -286,6 +309,9 @@ msgstr "Server share"
 msgid "Setup Mount Again"
 msgstr "\"Opnieuw mounten\" instellen"
 
+msgid "Stored username and password deleted for this host."
+msgstr ""
+
 msgid "Use as HDD replacement"
 msgstr "Gebruik als harde schijf vervanging"
 
@@ -302,8 +328,7 @@ msgid "View, edit or delete mountpoints on your Receiver."
 msgstr "Bekijken, verwijderen of aanpassen van de mounts van uw ontvanger."
 
 msgid "View, edit or delete usernames and passwords for your network."
-msgstr ""
-"Bekijk, wijzig of verwijder gebruikersnaam en wachtwoord voor uw netwerk."
+msgstr "Bekijk, wijzig of verwijder gebruikersnaam en wachtwoord voor uw netwerk."
 
 msgid ""
 "You have changed the share name!\n"
@@ -314,12 +339,10 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Your network interface %s is not properly configured, so a network scan "
-"cannot be done.\n"
+"Your network interface %s is not properly configured, so a network scan cannot be done.\n"
 "Please configure the interface and try again."
 msgstr ""
-"Uw netwerkinterface %s is niet correct geconfigureerd, waardoor geen "
-"netwerkscan kan worden uitgevoerd.\n"
+"Uw netwerkinterface %s is niet correct geconfigureerd, waardoor geen netwerkscan kan worden uitgevoerd.\n"
 "Configureer de interface en probeer het opnieuw."
 
 msgid "Your network mount has been activated."

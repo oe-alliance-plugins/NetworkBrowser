@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-16 19:06+0430\n"
+"POT-Creation-Date: 2026-04-10 01:01+0200\n"
 "PO-Revision-Date: 2012-05-17 19:16+0100\n"
 "Last-Translator: jerry <ws79@centrum.cz>\n"
 "Language-Team: jerry\n"
@@ -85,10 +85,16 @@ msgstr "Smazat"
 msgid "Delete mount"
 msgstr "Smazat bod"
 
+msgid "Delete stored username and password"
+msgstr ""
+
 msgid "Dir:"
 msgstr "Adr:"
 
 msgid "Do you want to enter a username and password for this host?"
+msgstr ""
+
+msgid "Edit username and password"
 msgstr ""
 
 msgid "Enigma2 (mount using enigma2)"
@@ -124,12 +130,11 @@ msgstr "Vložte uživatele:"
 msgid "Expert"
 msgstr "Expertní"
 
-#, fuzzy
-msgid "FSTAB (mount at boot)"
-msgstr "FSTAB (připojit přes linux)"
-
 msgid "Finished restarting your network"
 msgstr "Dokončení restartování sítě"
+
+msgid "Host actions"
+msgstr ""
 
 msgid "IP Address"
 msgstr "IP adresa"
@@ -160,10 +165,6 @@ msgstr "Připojit znovu"
 
 msgid "Mount informations"
 msgstr "Info připojení"
-
-#, fuzzy
-msgid "Mount manager"
-msgstr "Správce připojení"
 
 msgid "Mount options"
 msgstr "Volby připojení"
@@ -196,6 +197,9 @@ msgstr "Disk NFS"
 msgid "Network Browser"
 msgstr "Prohlížeč sítě"
 
+msgid "Nmap is required for network scanning but was not found on this system."
+msgstr ""
+
 msgid "No network devices found!"
 msgstr "Žádné síťové zařízení!"
 
@@ -207,6 +211,20 @@ msgstr "Počkejte na aktivaci síťového připojení..."
 
 msgid "Please wait while removing your network mount..."
 msgstr "Počkejte na odstranění síťového připojení..."
+
+msgid "Please wait while the network scan is running..."
+msgstr ""
+
+msgid ""
+"Please wait while the network scan is running...\n"
+"Multiple scan passes are used to improve detection."
+msgstr ""
+
+#, python-format
+msgid ""
+"Please wait while the network scan is running...\n"
+"Scan pass %d/%d"
+msgstr ""
 
 msgid "Please wait while updating your network mount..."
 msgstr "Počkejte na aktualizaci síťového připojení..."
@@ -283,6 +301,9 @@ msgstr "Sdílený server"
 msgid "Setup Mount Again"
 msgstr "Nastavit znovupřipojení"
 
+msgid "Stored username and password deleted for this host."
+msgstr ""
+
 msgid "Use as HDD replacement"
 msgstr "použít jako náhradu HDD"
 
@@ -300,14 +321,6 @@ msgstr "Prohlíží, edituje nebo maže přípojné body na vašem stb."
 
 msgid "View, edit or delete usernames and passwords for your network."
 msgstr "Prohlíží, edituje nebo maže uživatelská jména a hesla pro vaši síť."
-
-#, fuzzy
-msgid ""
-"You have changed the share name!\n"
-"Update existing entry and continue?\n"
-msgstr ""
-"Připojený záznam s tímto názvem již existuje!\n"
-"Aktualizovat existující a pokračovat?\n"
 
 #, python-format
 msgid ""

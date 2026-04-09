@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tuxbox-enigma 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-16 19:06+0430\n"
+"POT-Creation-Date: 2026-04-10 01:01+0200\n"
 "PO-Revision-Date: 2020-06-07 16:08+0200\n"
 "Last-Translator: \n"
 "Language-Team: Danskholdet <dk-translation@pm.me>\n"
@@ -83,11 +83,17 @@ msgstr "Slet"
 msgid "Delete mount"
 msgstr "Slet mount"
 
+msgid "Delete stored username and password"
+msgstr ""
+
 msgid "Dir:"
 msgstr "Bib:"
 
 msgid "Do you want to enter a username and password for this host?"
 msgstr "Vil du indtaste et brugernavn og adgangskode til denne vært?"
+
+msgid "Edit username and password"
+msgstr ""
 
 msgid "Enigma2 (mount using enigma2)"
 msgstr "Enigma2 (mount via enigma2)"
@@ -127,6 +133,9 @@ msgstr "FSTAB (mount under opstart)"
 
 msgid "Finished restarting your network"
 msgstr "Genstart af dit netværk gennemført"
+
+msgid "Host actions"
+msgstr ""
 
 msgid "IP Address"
 msgstr "IP-adresse"
@@ -192,6 +201,9 @@ msgstr "NFS deling"
 msgid "Network Browser"
 msgstr "Netværksbrowser"
 
+msgid "Nmap is required for network scanning but was not found on this system."
+msgstr ""
+
 msgid "No network devices found!"
 msgstr "Ingen netværksenhed fundet!"
 
@@ -203,6 +215,20 @@ msgstr "Vent venligt på aktivering af din netværks-mount..."
 
 msgid "Please wait while removing your network mount..."
 msgstr "Vent venligst mens dit netværk-mount fjernes..."
+
+msgid "Please wait while the network scan is running..."
+msgstr ""
+
+msgid ""
+"Please wait while the network scan is running...\n"
+"Multiple scan passes are used to improve detection."
+msgstr ""
+
+#, python-format
+msgid ""
+"Please wait while the network scan is running...\n"
+"Scan pass %d/%d"
+msgstr ""
 
 msgid "Please wait while updating your network mount..."
 msgstr "Vent venligst mens dit netværk-mount opdateres..."
@@ -278,6 +304,9 @@ msgstr "Serverdeling"
 
 msgid "Setup Mount Again"
 msgstr "Sæt mount op igen"
+
+msgid "Stored username and password deleted for this host."
+msgstr ""
 
 msgid "Use as HDD replacement"
 msgstr "Brug som harddisk erstatning"

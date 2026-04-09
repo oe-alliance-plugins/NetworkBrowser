@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network browser Persian Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-16 19:06+0430\n"
+"POT-Creation-Date: 2026-04-10 01:01+0200\n"
 "PO-Revision-Date: 2012-07-26 00:20+0330\n"
 "Last-Translator: mehdi <mehdi_ar_yekta@yahoo.com>\n"
 "Language-Team: Persian Professionals <persianpros@yahoo.com>\n"
@@ -81,10 +81,16 @@ msgstr "حذف کردن"
 msgid "Delete mount"
 msgstr ""
 
+msgid "Delete stored username and password"
+msgstr ""
+
 msgid "Dir:"
 msgstr ""
 
 msgid "Do you want to enter a username and password for this host?"
+msgstr ""
+
+msgid "Edit username and password"
 msgstr ""
 
 msgid "Enigma2 (mount using enigma2)"
@@ -126,6 +132,9 @@ msgstr ""
 msgid "Finished restarting your network"
 msgstr "اتمام راه اندازی شبکه شما"
 
+msgid "Host actions"
+msgstr ""
+
 msgid "IP Address"
 msgstr ""
 
@@ -156,10 +165,6 @@ msgstr ""
 msgid "Mount informations"
 msgstr "اطلاعات مونت"
 
-#, fuzzy
-msgid "Mount manager"
-msgstr "مدیر مونت"
-
 msgid "Mount options"
 msgstr "گزینه های مونت"
 
@@ -189,6 +194,9 @@ msgstr ""
 msgid "Network Browser"
 msgstr ""
 
+msgid "Nmap is required for network scanning but was not found on this system."
+msgstr ""
+
 msgid "No network devices found!"
 msgstr "هیچ دستگاهی در شبکه یافت نشد "
 
@@ -200,6 +208,20 @@ msgstr "لطفا به منظور فعال سازی مونت شبکه تان صب
 
 msgid "Please wait while removing your network mount..."
 msgstr "لطفا تا هنگامی که مونت شبکه در حال پاک شدن است صبر کنید ..."
+
+msgid "Please wait while the network scan is running..."
+msgstr ""
+
+msgid ""
+"Please wait while the network scan is running...\n"
+"Multiple scan passes are used to improve detection."
+msgstr ""
+
+#, python-format
+msgid ""
+"Please wait while the network scan is running...\n"
+"Scan pass %d/%d"
+msgstr ""
 
 msgid "Please wait while updating your network mount..."
 msgstr "لطفا تا بروزرسانی مونت شبکه تان صبر کنید ..."
@@ -274,6 +296,9 @@ msgid "Server share"
 msgstr ""
 
 msgid "Setup Mount Again"
+msgstr ""
+
+msgid "Stored username and password deleted for this host."
 msgstr ""
 
 msgid "Use as HDD replacement"
